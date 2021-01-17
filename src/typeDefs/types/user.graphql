@@ -1,0 +1,92 @@
+type Query {
+  me: User
+  getUser(id: ID): User
+  getUsers(state: UserState = ALL, role: UserRole!): [User]
+}
+
+type SingInResponse {
+  accessToken: String
+  refreshToken: String
+  user: User
+}
+
+type Mutation {
+  signIn(input: LoginInput): SingInResponse!
+  createUser(user: CreateUserInput): UserResponse!
+  updateUser(id: ID!, input: UpdateUserInput): UserResponse!
+  deleteUser(id: ID!): UserResponse!
+  toggleUserStatus(id: ID!, active: Boolean!): UserResponse!
+}
+
+enum UserRole {
+  ADMIN
+  EMPLOYEE
+}
+enum UserState {
+  ACTIVE
+  INACTIVE
+  ALL
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+  role: UserRole = EMPLOYEE
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  role: UserRole = EMPLOYEE
+  username: String!
+  dni: String
+  phone: String
+  gender: String
+  birth: String
+  province: String
+  address: String
+  nSecurity: String
+  salary: String
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  email: String
+  username: String
+  password: String
+  dni: String
+  phone: String
+  gender: String
+  birth: String
+  province: String
+  address: String
+  nSecurity: String
+  salary: String
+}
+
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  username: String!
+  dni: String
+  phone: String
+  gender: String
+  birth: String
+  province: String
+  address: String
+  nSecurity: String
+  salary: String
+  role: UserRole!
+  active: Boolean
+}
+
+type UserResponse implements BaseResponse {
+  message: String
+  user: User
+  object: User
+}

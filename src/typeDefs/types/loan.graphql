@@ -1,0 +1,38 @@
+#import './mainTypedefs.graphql'
+
+type Query {
+  getLoan(id: ID!): Loan!
+  getLoans: [Loan]
+  userLoans: [Loan]
+}
+
+type Mutation {
+  createLoan(input: CreateLoanInput!): LoanResponse!
+  devolutionLoan(input: DevolutionLoanInput): LoanResponse!
+  deleteLoan(id: ID!): Boolean!
+}
+
+input CreateLoanInput {
+  user: ID
+  product: ID!
+}
+
+scalar Date
+
+input DevolutionLoanInput {
+  id: ID!
+  user: ID
+}
+
+type Loan {
+  id: ID!
+  user: User
+  product: Product
+  requestDate: Date
+  devolutionDate: Date
+}
+
+type LoanResponse implements BaseResponse {
+  message: String
+  loan: Loan
+}

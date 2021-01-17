@@ -1,0 +1,32 @@
+#import './mainTypedefs.graphql'
+
+type Query {
+  getClient(id: ID!): Client!
+  getClients: [Client]
+}
+
+type Mutation {
+  createClient(input: CreateClientInput!): ClientResponse!
+  updateClient(id: ID!, input: UpdateClientInput!): ClientResponse!
+  deleteClient(id: ID!): ClientResponse!
+}
+
+input CreateClientInput {
+  name: String!
+}
+
+input UpdateClientInput {
+  name: String
+}
+
+type Client {
+  id: ID!
+  name: String!
+  workplaces: [Workplace]
+}
+
+type ClientResponse implements BaseResponse {
+  message: String
+  client: Client
+  object: Client
+}

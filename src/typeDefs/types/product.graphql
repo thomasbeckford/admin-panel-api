@@ -1,0 +1,40 @@
+#import './mainTypedefs.graphql'
+
+type Query {
+  getProduct(id: ID!): Product
+  getProducts: [Product]
+}
+
+type Mutation {
+  createProduct(input: ProductInput!): ProductResponse
+  updateProduct(id: ID!, input: UpdateProductInput!): ProductResponse
+  deleteProduct(id: ID!): ProductResponse
+}
+
+input ProductInput {
+  name: String
+  description: String
+}
+
+input UpdateProductInput {
+  name: String
+  description: String
+}
+
+type Product {
+  id: ID!
+  name: String!
+  description: String!
+  devolution: Devolution
+}
+
+type Devolution {
+  id: ID!
+  user: ID
+}
+
+type ProductResponse implements BaseResponse {
+  message: String
+  product: Product
+  object: Product
+}

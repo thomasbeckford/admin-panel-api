@@ -1,0 +1,35 @@
+type Query {
+  getWorkplaces: [Workplace]
+  getWorkplacesByLocation(location: LocationPointInput): [Workplace]
+}
+
+type Mutation {
+  createWorkplace(input: CreateWorkplaceInput!): WorkplaceResponse
+}
+
+input CreateWorkplaceInput {
+  name: String!
+  client: ID!
+  coordinates: [Float!]!
+}
+
+input LocationPointInput {
+  coordinates: [Float!]!
+  distance: Int = 50
+}
+
+type LocationPoint {
+  coordinates: [Float!]!
+}
+
+type Workplace {
+  id: ID!
+  name: String!
+  client: Client!
+  location: LocationPoint!
+}
+
+type WorkplaceResponse implements BaseResponse {
+  message: String
+  workplace: Workplace
+}

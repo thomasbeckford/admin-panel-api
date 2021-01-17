@@ -1,0 +1,36 @@
+#import './mainTypedefs.graphql'
+
+scalar Date
+
+type Query {
+  getRecords: [RecordGrouped]
+  hasCheckInActive: Record
+}
+type Mutation {
+  checkIn(input: CheckRecordInput!): RecordResponse!
+  checkOut(input: CheckRecordInput!): RecordResponse!
+}
+
+input CheckRecordInput {
+  workplace: ID!
+  coordinates: [Float!]!
+}
+
+type RecordGrouped {
+  date: String
+  records: [Record]
+}
+
+type Record {
+  id: ID!
+  entryDate: Date
+  exitDate: Date
+  workplace: Workplace
+  user: User
+}
+
+type RecordResponse implements BaseResponse {
+  message: String
+  record: Record
+  object: Record
+}

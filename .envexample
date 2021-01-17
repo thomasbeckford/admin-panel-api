@@ -1,0 +1,7 @@
+DB_NAME=dbname
+DB_USERNAME=admin
+DB_PASSWORD=pass
+DB_URI=db
+
+JWT_REFRESH_KEY=somekeyvalue
+JWT_ACCESS_KEY=somekey2value
